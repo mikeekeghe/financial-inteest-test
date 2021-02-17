@@ -4,7 +4,7 @@ import java.io.File;
 public class ReadFolderContent {
     public static void main(String[] args){
         // creates a file object
-        File file = new File("/home/mike/Documents/personal/NODE_PROJECTS/ELECTRON_ROJECTS/First_Approach/SchoolLine/src/htmlpages/test");
+        File file = new File("/home/mike/Documents/personal/NODE_PROJECTS/ELECTRON_ROJECTS/First_Approach/SchoolLine/src/htmlpages");
 
         // returns an array of all files
         String[] fileList = file.list();
