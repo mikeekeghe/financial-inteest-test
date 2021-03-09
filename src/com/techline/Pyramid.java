@@ -19,7 +19,7 @@ public class Pyramid {
         for (int row = 1; row <= numberOfLines; row++) {
             // Print (NUMBER_OF_LINES – row) leading spaces
             for (int column = 1; column <= numberOfLines - row; column++)
-                System.out.print("   ");
+                System.out.print("  ");
 
             // Print leading numbers row, row – 1, ..., 1
             for (int num = row; num >= 1; num--)
