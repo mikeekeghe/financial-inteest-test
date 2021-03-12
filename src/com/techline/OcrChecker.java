@@ -5,18 +5,26 @@ import java.util.Scanner;
 public class OcrChecker {
 
     public static void main(String[] args) {
-        String remainder = "";
-        String finalNumber = "";
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter the word amount to deposit (exit to quit): ");
-        String wordAmount = input.nextLine();
-        Double numberAmount = null;
-        if (wordAmount.equalsIgnoreCase("exit")) {
+        String remainder = "",  wordAmount = "";
+        int finalNumber = 0,numberAmount = 0;
+        Scanner input1 = new Scanner(System.in);
+        System.out.print("Enter the 1st line of the cheque to deposit  (exit to quit): ");
+        String firstLine = input1.nextLine();
+        if (firstLine.equalsIgnoreCase("exit")) {
             System.exit(1);
         } else {
+            if (firstLine.contains(".")){
+                int ind = firstLine.indexOf(".");
+                firstLine= firstLine.substring(0, ind);
+            }
+            String numberAmountWDecimalAsString = firstLine.replaceAll("\\D+", "");
+            numberAmount = Integer.parseInt(numberAmountWDecimalAsString);
             Scanner input2 = new Scanner(System.in);
-            System.out.print("Enter the number amount:  ");
-            numberAmount = input2.nextDouble();
+            System.out.print("Enter the 2nd line of the cheque:  ");
+
+            wordAmount = input2.nextLine();
+            wordAmount = wordAmount.toLowerCase();
+
             // check to see if the line contains "hundred"
             boolean containsHundred, containsNinety, containsEighty, containsSeventy, containsSixty,
                     containsFifty, containsForty, containsThirty, containsTwenty;
@@ -32,7 +40,7 @@ public class OcrChecker {
             containsForty = wordAmount.contains("forty");
             containsThirty = wordAmount.contains("thirty");
             containsTwenty = wordAmount.contains("twenty");
-
+//            System.out.println("containsHundred is "+ containsHundred);
             if (containsHundred) {
                 // the cheque has a hundreds amount read the digit
                 hundredsDigit = cheqScanner.next();
@@ -40,113 +48,118 @@ public class OcrChecker {
                 cheqScanner.next();
                 // read the remainder of the String till the end of line
                 remainder = cheqScanner.nextLine();
-                System.out.printf("Hundreds digit was: %s%n", hundredsDigit);
-                System.out.printf("Remainder of the line is:%s%n", remainder);
+//                System.out.printf("Hundreds digit was: %s%n", hundredsDigit);
+//                System.out.printf("Remainder of the line is:%s%n", remainder);
                 switch (hundredsDigit) {
                     case "one":
-                        finalNumber = "1";
+                        finalNumber = 100;
                         break;
 
                     case "two":
-                        finalNumber = "2";
+                        finalNumber = 200;
                         break;
 
                     case "three":
-                        finalNumber = "3";
+                        finalNumber = 300;
                         break;
 
                     case "four":
-                        finalNumber = "4";
+                        finalNumber = 400;
                         break;
 
                     case "five":
-                        finalNumber = "5";
+                        finalNumber = 500;
                         break;
 
                     case "six":
-                        finalNumber = "6";
+                        finalNumber = 600;
                         break;
 
                     case "seven":
-                        finalNumber = "7";
+                        finalNumber = 700;
                         break;
 
                     case "eight":
-                        finalNumber = "8";
+                        finalNumber = 800;
                         break;
 
                     case "nine":
-                        finalNumber = "9";
+                        finalNumber = 900;
                         break;
 
                 }
+//                System.out.println("finalNumber at hunderds is : "+ finalNumber);
             }
             if ((remainder==null) || (remainder.equals(""))){
                 remainder = cheqScanner.nextLine();
             }
             if (containsNinety) {
-                finalNumber += "9";
+                finalNumber += 90;
             } else if (containsEighty) {
-                finalNumber += "8";
+                finalNumber += 80;
             } else if (containsSeventy) {
-                finalNumber += "7";
+                finalNumber += 70;
             } else if (containsSixty) {
-                finalNumber += "6";
+                finalNumber += 60;
             } else if (containsFifty) {
-                finalNumber += "5";
+                finalNumber += 50;
             } else if (containsForty) {
-                finalNumber += "4";
+                finalNumber += 40;
             } else if (containsThirty) {
-                finalNumber += "3";
+                finalNumber += 30;
             } else if (containsTwenty) {
-                finalNumber += "2";
+                finalNumber += 20;
             }
+//            System.out.println("finalNumber at tens is : "+ finalNumber);
+
             if (remainder.contains("one")) {
-                finalNumber += "1";
+                finalNumber += 1;
             } else if (remainder.contains("two")) {
-                finalNumber += "2";
+                finalNumber += 2;
             } else if (remainder.contains("three")) {
-                finalNumber += "3";
+                finalNumber += 3;
             } else if (remainder.contains("four")) {
-                finalNumber += "4";
+                finalNumber += 4;
             } else if (remainder.contains("five")) {
-                finalNumber += "5";
-            } else if (remainder.contains("six")) {
-                finalNumber += "6";
-            } else if (remainder.contains("seven")) {
-                finalNumber += "7";
-            } else if (remainder.contains("eight")) {
-                finalNumber += "8";
-            } else if (remainder.contains("nine")) {
-                finalNumber += "9";
+                finalNumber += 5;
+            } else if (remainder.contains("six ")) {
+                finalNumber += 6;
+            } else if (remainder.contains("seven ")) {
+                finalNumber += 7;
+            } else if (remainder.contains("eight ")) {
+                finalNumber += 8;
+            } else if (remainder.contains("nine ")) {
+                finalNumber += 9;
             } else if (remainder.contains("eleven")) {
-                finalNumber += "11";
+                finalNumber += 11;
             } else if (remainder.contains("twelve")) {
-                finalNumber += "12";
+                finalNumber += 12;
             } else if (remainder.contains("thirteen")) {
-                finalNumber += "13";
+                finalNumber += 13;
             } else if (remainder.contains("fourteen")) {
-                finalNumber += "14";
+                finalNumber += 14;
             } else if (remainder.contains("fifteen")) {
-                finalNumber += "15";
+                finalNumber += 15;
             } else if (remainder.contains("sixteen")) {
-                finalNumber += "16";
+                finalNumber += 16;
             } else if (remainder.contains("seventeen")) {
-                finalNumber += "17";
+                finalNumber += 17;
             } else if (remainder.contains("eighteen")) {
-                finalNumber += "18";
+                finalNumber += 18;
             } else if (remainder.contains("nineteen")) {
-                finalNumber += "19";
+                finalNumber += 19;
             }
 
         }
-        System.out.println("finalNumber is :"+ finalNumber);
-        String newValue = String.valueOf((int)Math.round(numberAmount));
-        System.out.println("newValue :"+ newValue);
-        if (finalNumber.matches(newValue)) {
-            System.out.println("Valid Check");
+//        System.out.println("Generated Number is :"+ finalNumber);
+        //String newValue = String.valueOf((int)Math.round(numberAmount));
+        //System.out.println("entered numerals :"+ newValue);
+        if (finalNumber==numberAmount) {
+            System.out.println("Numeric amount and word amount match!");
+            System.out.println("Cheque amount deposited is $"+ numberAmount);
         } else {
-            System.out.println("Invalid Cheque");
+            System.out.println("ERROR: numeric amount and word amount DON'T MATCH.");
+            System.out.println("Auto Deposit rejected.");
         }
 
     }
