@@ -5,20 +5,38 @@ import java.util.Scanner;
 public class OcrChecker {
 
     public static void main(String[] args) {
-        String remainder = "",  wordAmount = "";
-        int finalNumber = 0,numberAmount = 0;
-        Scanner input1 = new Scanner(System.in);
-        System.out.print("Enter the 1st line of the cheque to deposit  (exit to quit): ");
-        String firstLine = input1.nextLine();
-        if (firstLine.equalsIgnoreCase("exit")) {
-            System.exit(1);
-        } else {
-            if (firstLine.contains(".")){
-                int ind = firstLine.indexOf(".");
-                firstLine= firstLine.substring(0, ind);
+        String firstLine, decimals, remainder, wordAmount;
+        Double finalNumber, numberAmount;
+        do {
+            finalNumber = 0.0;
+            numberAmount = 0.0;
+            remainder = "";
+            decimals = "";
+            Scanner input1 = new Scanner(System.in);
+            System.out.print("Enter the 1st line of the cheque to deposit  (exit to quit): ");
+            firstLine = input1.nextLine();
+            if (firstLine.equalsIgnoreCase("exit")) {
+                System.exit(1);
             }
-            String numberAmountWDecimalAsString = firstLine.replaceAll("\\D+", "");
-            numberAmount = Integer.parseInt(numberAmountWDecimalAsString);
+            if (firstLine.contains(".")) {
+                int ind = firstLine.indexOf(".");
+                decimals = firstLine.substring(ind + 1);
+                //firstLine = firstLine.substring(0, ind);
+            }
+            firstLine = firstLine.replaceAll("\\D+", "");
+
+            String newString = "";
+            int index = (firstLine.length() - 3);
+
+            for (int i = 0; i < firstLine.length(); i++) {
+
+                newString += firstLine.charAt(i);
+
+                if (i == index) {
+                    newString += ".";
+                }
+            }
+            numberAmount = Double.valueOf(newString);
             Scanner input2 = new Scanner(System.in);
             System.out.print("Enter the 2nd line of the cheque:  ");
 
@@ -52,45 +70,45 @@ public class OcrChecker {
 //                System.out.printf("Remainder of the line is:%s%n", remainder);
                 switch (hundredsDigit) {
                     case "one":
-                        finalNumber = 100;
+                        finalNumber = 100.00;
                         break;
 
                     case "two":
-                        finalNumber = 200;
+                        finalNumber = 200.00;
                         break;
 
                     case "three":
-                        finalNumber = 300;
+                        finalNumber = 300.00;
                         break;
 
                     case "four":
-                        finalNumber = 400;
+                        finalNumber = 400.00;
                         break;
 
                     case "five":
-                        finalNumber = 500;
+                        finalNumber = 500.00;
                         break;
 
                     case "six":
-                        finalNumber = 600;
+                        finalNumber = 600.00;
                         break;
 
                     case "seven":
-                        finalNumber = 700;
+                        finalNumber = 700.00;
                         break;
 
                     case "eight":
-                        finalNumber = 800;
+                        finalNumber = 800.00;
                         break;
 
                     case "nine":
-                        finalNumber = 900;
+                        finalNumber = 900.00;
                         break;
 
                 }
 //                System.out.println("finalNumber at hunderds is : "+ finalNumber);
             }
-            if ((remainder==null) || (remainder.equals(""))){
+            if ((remainder == null) || (remainder.equals(""))) {
                 remainder = cheqScanner.nextLine();
             }
             if (containsNinety) {
@@ -150,17 +168,24 @@ public class OcrChecker {
                 finalNumber += 19;
             }
 
-        }
-//        System.out.println("Generated Number is :"+ finalNumber);
-        //String newValue = String.valueOf((int)Math.round(numberAmount));
-        //System.out.println("entered numerals :"+ newValue);
-        if (finalNumber==numberAmount) {
-            System.out.println("Numeric amount and word amount match!");
-            System.out.println("Cheque amount deposited is $"+ numberAmount);
-        } else {
-            System.out.println("ERROR: numeric amount and word amount DON'T MATCH.");
-            System.out.println("Auto Deposit rejected.");
-        }
+            String finalNumberStr = String.valueOf(finalNumber);
+            if (finalNumberStr.contains(".")) {
+                int ind = finalNumberStr.indexOf(".");
+                finalNumberStr = finalNumberStr.substring(0, ind);
+            }
+            finalNumberStr = finalNumberStr + "." + decimals;
+            finalNumber = Double.valueOf(finalNumberStr);
+//            System.out.println("Generated Number 2 is :"+ finalNumber);
+//            System.out.println("entered numerals 2 :"+ numberAmount);
+            if (finalNumber.equals(numberAmount)) {
+                System.out.println("Numeric amount and word amount match!");
+                System.out.println("Cheque amount deposited is $" + numberAmount);
+            } else {
+                System.out.println("ERROR: numeric amount and word amount DON'T MATCH.");
+                System.out.println("Auto Deposit rejected.");
+            }
 
+        }
+        while (!firstLine.equalsIgnoreCase("exit"));
     }
 }
