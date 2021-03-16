@@ -36,7 +36,11 @@ public class OcrChecker {
                     newString += ".";
                 }
             }
-            numberAmount = Double.valueOf(newString);
+            if (newString.equals("")){
+                numberAmount =0.0;
+            }else{
+                numberAmount = Double.valueOf(newString);
+            }
             Scanner input2 = new Scanner(System.in);
             System.out.print("Enter the 2nd line of the cheque:  ");
 
@@ -65,7 +69,11 @@ public class OcrChecker {
                 // read the discard the word "hundred"
                 cheqScanner.next();
                 // read the remainder of the String till the end of line
-                remainder = cheqScanner.nextLine();
+                if (remainder.equals("")){
+                    remainder += "xxx";
+                }else{
+                    remainder = cheqScanner.nextLine();
+                }
 //                System.out.printf("Hundreds digit was: %s%n", hundredsDigit);
 //                System.out.printf("Remainder of the line is:%s%n", remainder);
                 switch (hundredsDigit) {
