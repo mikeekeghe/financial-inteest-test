@@ -45,7 +45,7 @@ public class OcrChecker {
             System.out.print("Enter the 2nd line of the cheque:  ");
 
             wordAmount = input2.nextLine();
-            wordAmount = wordAmount.toLowerCase();
+            wordAmount = wordAmount.toLowerCase() +" ";
 
             // check to see if the line contains "hundred"
             boolean containsHundred, containsNinety, containsEighty, containsSeventy, containsSixty,
@@ -70,7 +70,7 @@ public class OcrChecker {
                 cheqScanner.next();
                 // read the remainder of the String till the end of line
                 if (remainder.equals("")){
-                    remainder += "xxx";
+                    remainder = "";
                 }else{
                     remainder = cheqScanner.nextLine();
                 }
