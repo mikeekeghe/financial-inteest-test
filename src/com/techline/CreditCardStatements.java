@@ -80,33 +80,7 @@ public class CreditCardStatements {
 
     }
 
-    public static void CreateStatement() {// text file report
-
-        /*
-
-         Statement for 4/9/2020 to 5/7/2020
-
-         PREVIOUS STATEMENT BALANCE                                     $895.91
-
-         Transaction    Activity Description                          Amount($)
-         ======================================================================
-         4/9/2020       SWISS CHALET #1912 CALGARY AB                    $32.31
-
-         4/10/2020      WAL*MART CANADA INC Mississauga ON              $200.95
-
-         4/11/2020      Amazon.ca Prime Member amazon.ca/priBC            $8.39
-
-         4/11/2020      AMZN Mktp CA*M58d33330 WWW.AMAZON.CAON           $62.98
-         .
-         .
-         .
-         5/7/2020       NBX*WYCLIFFE BIBLE TRA CALGARY AB               $140.00
-
-         5/7/2020       THE HOME DEPOT #7082 CALGARY AB                  $27.28
-
-         Closing Balance                                $2933.43
-
-         */
+    public static void CreateStatement() {
         try {
 
             FileWriter toFile = new FileWriter(TO_FILE_LOCATION);
@@ -162,9 +136,13 @@ public class CreditCardStatements {
         double openingBalance = Double.parseDouble(in.nextLine());
         System.out.print("Enter Credit Limit: $");
         double creditLimit = Double.parseDouble(in.nextLine());
+        Scanner input1 = new Scanner(System.in);
+        System.out.print("Enter Transaction File ");
+        String transactionFile =input1.nextLine();
+
 
         try {
-            BufferedReader inFile = new BufferedReader(new FileReader(FROM_FILE_LOCATION));
+            BufferedReader inFile = new BufferedReader(new FileReader(transactionFile));
             Transaction trans = new Transaction();
 
             String data;
